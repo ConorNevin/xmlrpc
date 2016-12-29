@@ -1,0 +1,23 @@
+hash: e3abc4c784f70e035e457fc4212460cbecd920fe60fcf153af50e5d7597c77ae
+updated: 2016-12-28T21:47:06.191529311Z
+imports: []
+testImports:
+- name: github.com/divan/gorilla-xmlrpc
+  version: 706499c05b3e4047069f120794be0f56a5bf8ef9
+  subpackages:
+  - xml
+- name: github.com/gorilla/rpc
+  version: 22c016f3df3febe0c1f6727598b6389507e03a18
+- name: github.com/rogpeppe/go-charset
+  version: e9ff06f347d3f5d0013d59ed83754f0e88de10d4
+  subpackages:
+  - charset
+  - data
+- name: golang.org/x/text
+  version: a49bea13b776691cb1b49873e5d8df96ec74831a
+  subpackages:
+  - encoding
+  - encoding/charmap
+  - encoding/internal
+  - encoding/internal/identifier
+  - transform

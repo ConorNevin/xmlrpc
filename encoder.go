@@ -7,6 +7,9 @@ import (
 	"reflect"
 	"strconv"
 	"time"
+	"sort"
+	"errors"
+	"log"
 )
 
 type encodeFunc func(reflect.Value) ([]byte, error)
@@ -17,7 +20,9 @@ func marshal(v interface{}) ([]byte, error) {
 	}
 
 	val := reflect.ValueOf(v)
-	return encodeValue(val)
+	byteArr, err := encodeValue(val)
+
+	return byteArr, err
 }
 
 func encodeValue(val reflect.Value) ([]byte, error) {
@@ -69,7 +74,7 @@ func encodeValue(val reflect.Value) ([]byte, error) {
 			b = []byte(fmt.Sprintf("<string>%s</string>", buf.String()))
 		}
 	default:
-		return nil, fmt.Errorf("xmlrpc encode error: unsupported type")
+		return nil, errors.New("xmlrpc encode error: unsupported type")
 	}
 
 	if err != nil {
@@ -85,15 +90,31 @@ func encodeStruct(val reflect.Value) ([]byte, error) {
 	b.WriteString("<struct>")
 
 	t := val.Type()
+
+	fieldNames := make([]string, t.NumField())
 	for i := 0; i < t.NumField(); i++ {
+		fieldNames[i] = t.Field(i).Name
+	}
+
+	sort.Strings(fieldNames)
+
+	for _, n := range fieldNames {
 		b.WriteString("<member>")
-		f := t.Field(i)
+		f, ok := t.FieldByName(n)
+		if !ok {
+			return nil, fmt.Errorf("Field(%s) does not exist in %s", f.Name, t.Name())
+		}
 
 		name := f.Tag.Get("xmlrpc")
 		if name == "" {
 			name = f.Name
 		}
-		b.WriteString(fmt.Sprintf("<name>%s</name>", name))
+
+		log.Println(name)
+		nameXML := fmt.Sprintf("<name>%s</name>", name)
+
+		log.Println(nameXML)
+		b.WriteString(nameXML)
 
 		p, err := encodeValue(val.FieldByName(f.Name))
 		if err != nil {
@@ -113,7 +134,7 @@ func encodeMap(val reflect.Value) ([]byte, error) {
 	var t = val.Type()
 
 	if t.Key().Kind() != reflect.String {
-		return nil, fmt.Errorf("xmlrpc encode error: only maps with string keys are supported")
+		return nil, errors.New("xmlrpc encode error: only maps with string keys are supported")
 	}
 
 	var b bytes.Buffer
@@ -121,6 +142,7 @@ func encodeMap(val reflect.Value) ([]byte, error) {
 	b.WriteString("<struct>")
 
 	keys := val.MapKeys()
+	sort.Sort(Values(keys))
 
 	for i := 0; i < val.Len(); i++ {
 		key := keys[i]
@@ -162,3 +184,9 @@ func encodeSlice(val reflect.Value) ([]byte, error) {
 
 	return b.Bytes(), nil
 }
+
+type Values []reflect.Value
+
+func (v Values) Len() int           { return len(v) }
+func (v Values) Less(i, j int) bool { return v[i].String() < v[j].String() }
+func (v Values) Swap(i, j int)      { v[i], v[j] = v[j], v[i] }

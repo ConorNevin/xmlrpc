@@ -1,0 +1,9 @@
+package: github.com/ConorNevin/xmlrpc
+import: []
+testImport:
+- package: golang.org/x/text
+  subpackages:
+  - encoding/charmap
+  - transform
+- package: github.com/gorilla/rpc
+- package: github.com/divan/gorilla-xmlrpc/xml
