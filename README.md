@@ -3,6 +3,8 @@
 [![Build Status](https://travis-ci.org/ConorNevin/xmlrpc.svg?branch=master)](https://travis-ci.org/ConorNevin/xmlrpc)
 [![GoDoc](https://godoc.org/github.com/ConorNevin/xmlrpc?status.svg)](https://godoc.org/github.com/ConorNevin/xmlrpc)
 [![Go Report Card](https://goreportcard.com/badge/github.com/ConorNevin/xmlrpc)](https://goreportcard.com/report/github.com/ConorNevin/xmlrpc)
+[![codecov](https://codecov.io/gh/ConorNevin/xmlrpc/branch/master/graph/badge.svg)](https://codecov.io/gh/ConorNevin/xmlrpc)
+
 
 xmlrpc is an implementation of client side part of XMLRPC protocol in Go language.
 
