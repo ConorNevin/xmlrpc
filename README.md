@@ -1,11 +1,15 @@
 ## Overview
 
+[![Build Status](https://travis-ci.org/ConorNevin/xmlrpc.svg?branch=master)](https://travis-ci.org/ConorNevin/xmlrpc)
+[![GoDoc](https://godoc.org/github.com/ConorNevin/xmlrpc?status.svg)](https://godoc.org/github.com/ConorNevin/xmlrpc)
+[![Go Report Card](https://goreportcard.com/badge/github.com/ConorNevin/xmlrpc)](https://goreportcard.com/report/github.com/ConorNevin/xmlrpc)
+
 xmlrpc is an implementation of client side part of XMLRPC protocol in Go language.
 
 ## Installation
 
-To install xmlrpc package run `go get github.com/kolo/xmlrpc`. To use
-it in application add `"github.com/kolo/xmlrpc"` string to `import`
+To install xmlrpc package run `go get github.com/ConorNevin/xmlrpc`. To use
+it in application add `"github.com/ConorNevin/xmlrpc"` string to `import`
 statement.
 
 ## Usage
@@ -73,7 +77,3 @@ response Response data type can be used.
 ## Contribution
 
 Feel free to fork the project, submit pull requests, ask questions.
-
-## Authors
-
-Dmitry Maksimov (dmtmax@gmail.com)
