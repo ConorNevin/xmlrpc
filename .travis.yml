@@ -12,3 +12,6 @@ install:
 
 script:
   go test $(glide nv)
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
